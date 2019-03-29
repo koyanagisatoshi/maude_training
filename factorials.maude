@@ -1,0 +1,24 @@
+set trace on .
+fmod GCD is
+    pr NAT .
+    op gcd' : Nat  Nat -> Nat .
+    var X : Nat .
+    var NzY : NzNat .
+    eq gcd'(X, 0) = X .
+    eq gcd'(X,NzY) = gcd'(NzY,X rem NzY) .
+endfm
+
+red in GCD : gcd (24, 36) .
+red in GCD : gcd' (24, 36) .
+red in GCD : gcd (24, 36) == gcd' (24, 36) .
+
+fmod FACTORIAL-01 is
+    pr INT .
+    op fact' : Nat -> Nat .
+    var NzX : NzNat .
+    eq fact'(0) = 1 . 
+    eq fact'(NzX) = NzX * fact'(NzX - 1) .
+endfm
+
+red in FACTORIAL-01 : fact'(0) . 
+red in FACTORIAL-01 : fact'(10) . 

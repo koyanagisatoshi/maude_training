@@ -1,0 +1,21 @@
+
+fmod PEANO is
+    *** pr NAT .
+    sorts Zero NzNat Nat .
+    subsorts Zero NzNat < Nat . 
+
+    op o    : -> Zero .
+    op s _  : Nat -> NzNat .
+    op _ + _ : Nat Nat -> Nat .
+    *** op _ + _ : NzNat NzNat -> NzNat .
+    *** op _ + _ : NzNat NzNat -> NzNat [comm] .
+
+    vars m n : Nat .
+    eq o + n =  n .
+    eq (s m) + n = s (m + n) .
+endfm
+
+red in PEANO : (s (o)) + (s(s (o)))  .
+red in PEANO : (s (o)) + o  .
+red in PEANO : o == o .
+red in PEANO : o =/= o .
