@@ -1,16 +1,7 @@
+***( this is start of multiple comments. 
 set trace on .
-fmod GCD is
-    pr NAT .
-    op gcd' : Nat  Nat -> Nat .
-    var X : Nat .
-    var NzY : NzNat .
-    eq gcd'(X, 0) = X .
-    eq gcd'(X,NzY) = gcd'(NzY,X rem NzY) .
-endfm
-
-red in GCD : gcd (24, 36) .
-red in GCD : gcd' (24, 36) .
-red in GCD : gcd (24, 36) == gcd' (24, 36) .
+set verbose on .
+) *** this is end of multiple comments. 
 
 fmod FACTORIAL-01 is
     pr INT .
@@ -19,6 +10,51 @@ fmod FACTORIAL-01 is
     eq fact'(0) = 1 . 
     eq fact'(NzX) = NzX * fact'(NzX - 1) .
 endfm
+red in FACTORIAL-01 : fact'(1000) . 
+*** red in FACTORIAL-01 : fact'(10000) .  *** ok
+*** red in FACTORIAL-01 : fact'(100000) . process die
 
-red in FACTORIAL-01 : fact'(0) . 
-red in FACTORIAL-01 : fact'(10) . 
+*** Odd-Even Divide & Conquer Factorial
+fmod FACTORIAL-02 is
+    pr INT .
+    op cond : Bool Nat Nat -> Nat .
+    op g : Nat Nat -> Nat .
+    op oedc-fact : Nat -> Nat .
+    vars X Y : Nat .
+    var NzX : NzNat .
+    eq cond(true, X, Y) = X . 
+    eq cond(false,X, Y) = Y . 
+    *** eq g( *** buged?
+    eq g(X,Y) = cond(X > Y, g(X, 2 * Y) * g(sd(X,Y), 2 * Y), X) .
+    eq oedc-fact(0) = 1 .
+    eq oedc-fact(NzX) = g(NzX,1) .
+endfm
+red in FACTORIAL-02 : oedc-fact(0) . 
+red in FACTORIAL-02 : oedc-fact(1) . *** g is bugged
+*** red in FACTORIAL-02 : g(10,20) . *** g is bugged 
+
+*** fmod GCD is
+***     pr NAT .
+***     op gcd' : Nat  Nat -> Nat .
+***     var X : Nat .
+***     var NzY : NzNat .
+***     eq gcd'(X, 0) = X .
+***     eq gcd'(X,NzY) = gcd'(NzY,X rem NzY) .
+*** endfm
+
+*** red in GCD : gcd (24, 36) .
+*** red in GCD : gcd' (24, 36) .
+*** red in GCD : gcd (24, 36) == gcd' (24, 36) .
+
+*** --- 「フィボナッチ数列」とは，「前の２つの数を加えると次の数になる」という数列です。
+*** --- ただし，１番目と２番目の数は両方とも１です。
+*** fmod FIBONACCI-01 is
+*** endfm
+
+*** --- Odd‐Even Divide & Conquer Factorial
+*** fmod FIBONACCI-02 is
+*** endfm
+
+*** --- Def is...
+*** fmod ACKERMAN-01 is
+*** endfm
